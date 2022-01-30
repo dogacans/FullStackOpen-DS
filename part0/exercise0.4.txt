@@ -1,0 +1,25 @@
+note over browser:
+User writes a note in the textbox, then clicks submit
+end note
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+server-->browser: Redirect (status code 302)
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-CODE
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+When page is loaded (state 4),
+the javascript code requests data.json from server
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: data for list content
+
+note over browser:
+browser executes the event handler
+that renders notes to display
+end note
+
