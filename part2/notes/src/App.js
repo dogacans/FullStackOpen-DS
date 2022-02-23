@@ -8,6 +8,7 @@ const App = (props) => {
   const [newNote, setNewNote] = useState("")
   const [showAll, setShowAll] = useState(true)
 
+
   useEffect(() => {
     noteService
       .getAll()
@@ -50,10 +51,10 @@ const App = (props) => {
   : notes.filter(note => note.important)
 
   const toggleImportanceOf = (id) => {
-
+    
     const note = notes.find(note => note.id === id)
     const changedNote = {...note, important: !note.important}
-
+    
     noteService
       .update(id, changedNote)
       .then(returnedNote => {

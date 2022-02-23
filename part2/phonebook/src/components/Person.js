@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 const Person = (props) => {
 
     return (

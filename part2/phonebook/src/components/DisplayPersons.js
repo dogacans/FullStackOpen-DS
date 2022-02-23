@@ -6,7 +6,7 @@ const DisplayPersons = (props) => {
     return (
         <div>
         {personsToShow.map(person =>
-            <Person  key={person.name} personId={person.id} 
+            <Person  key={person.id} personId={person.id} 
             name={person.name} number={person.number}
             deleteFunc={() => props.deleteFunc(person.id)} />)}
         </div>

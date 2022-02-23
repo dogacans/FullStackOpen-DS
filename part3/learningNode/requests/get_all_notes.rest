@@ -1,0 +1,22 @@
+POST http://localhost:3001/api/notes/ HTTP/1.1
+content-type: application/json
+
+{
+    "content": "VS code is good",
+    "important": false
+}
+
+###
+
+GET http://localhost:3001/api/notes/
+
+
+###
+
+PUT http://localhost:3001/api/notes/1
+Content-Type: :application/json
+
+{
+    "content": "VS code is good",
+    "important": false
+}

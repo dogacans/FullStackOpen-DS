@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import NewPersonForm from "./components/NewPersonForm"
 import FilterPersons from "./components/FilterPersons"
 import DisplayPersons from "./components/DisplayPersons"
-import axios from 'axios'
 import personsService from "./services/persons"
 import Notification from './components/Notification'
 
@@ -21,7 +20,9 @@ const App = () => {
         setPersons(response.data)
       })
   }, [])
+
   console.log('render', persons.length, 'persons')
+
 
   const handleNameInputChange = (event) => {
     setNewName(event.target.value)
@@ -33,12 +34,7 @@ const App = () => {
   const submitNewPerson = (event) => {
     event.preventDefault();
     console.log(event.target);
-    // return if no name is given
-    if (newName === "" || newNumber === ""){
-      window.alert("Name and number fields cannot be empty!")
-      return
-    }
-    
+
     const newPersonObject = {
       name: newName,
       number: newNumber
@@ -49,16 +45,31 @@ const App = () => {
       const response = window.confirm(`${newName} is already in the phonebook. Do you want to change the number?`)
      
       if (response) {
-        console.log("Change it!!!")
+      
         const person = persons.find(person => person.name === newPersonObject.name)
+        
         personsService.update(person.id, newPersonObject)
         .then(response => console.log("Person updated!"))
+        .catch(error => {
+          seterrorOrNotification("error")
+          setNotificationMessage(error.response.data.error)
+        })
+
+        
 
         const newPersons = persons.map(person => 
-          person.name === newPersonObject.name ? newPersonObject : person
+          // Must put id here, or it will give "bad id" error, since it will be undefined.
+          person.name === newPersonObject.name ? {...newPersonObject, id: person.id} : person
         )
         console.log(newPersons)
         setPersons(newPersons)
+
+        setTimeout(() => {
+          setNotificationMessage(null)
+    
+        }, 10000)
+
+
       }
       
       else 
@@ -68,19 +79,24 @@ const App = () => {
     
     else {
       personsService.create(newPersonObject)
-        .then(response =>
-        setPersons(persons.concat(newPersonObject)))
+        .then(response =>{
+        setPersons(persons.concat(newPersonObject))
+       })
+        .catch(error => {
+          seterrorOrNotification("error")
+          setNotificationMessage(error.response.data.error)
+        })
 
     setNewName("")
     setNewNumber("")
-    seterrorOrNotification("notification")
-    setNotificationMessage(
-      `Added ${newPersonObject.name}`
-    )
+    // seterrorOrNotification("notification")
+    // setNotificationMessage(
+    //   `Added ${newPersonObject.name}`
+    // )
     setTimeout(() => {
       setNotificationMessage(null)
 
-    }, 5000)
+    }, 10000)
     }
   }
 
