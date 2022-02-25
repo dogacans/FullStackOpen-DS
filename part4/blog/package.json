@@ -4,12 +4,13 @@
   "description": "FSOpen part4, blog app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "dev": "npx nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
@@ -17,6 +18,10 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "index.js": "^0.0.3",
+    "lodash": "^4.17.21",
     "mongoose": "^6.2.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
