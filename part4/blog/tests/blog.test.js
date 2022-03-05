@@ -85,7 +85,7 @@ describe('total likes', () => {
     })
 })
 
-describe('Most liked', () => {
+describe('Most', () => {
     const listWithMultipleBlogs = [
         {
           _id: "5a422a851b54a676234d17f7",
@@ -142,10 +142,15 @@ describe('Most liked', () => {
         expect(result).toEqual(listWithMultipleBlogs[0])
     })
     
-    test('', () => {
+    test('Author with most likes', () => {
         const result = listHelper.mostLikedAuthor(listWithMultipleBlogs)
-        console.log(result)
-        expect(result).toBe('Edsger W. Dijkstra')
+        expect(result).toEqual({"author": "Michael Chan", "likes": 31})
     })
+
+    test('Author with most number of blogs', () => {
+      const result = listHelper.mostBlogs(listWithMultipleBlogs)
+      expect(result).toBe('Robert C. Martin')
+  })
+
 
 })
